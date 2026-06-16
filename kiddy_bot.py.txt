@@ -1,0 +1,30 @@
+import asyncio
+from aiogram import Bot, Dispatcher, types
+from aiogram.filters import Command
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+
+API_TOKEN = '8873571450:AAHATMTf2iaSj2VJEkmYMZ47Gs5We4TGg_w'
+
+bot = Bot(token=API_TOKEN)
+dp = Dispatcher()
+
+@dp.message(Command("start"))
+async def start(message: types.Message):
+    web_app = WebAppInfo(url="https://yalla-gool.com/")
+    btn = InlineKeyboardButton(text="🔴 Watch Live", web_app=web_app)
+    markup = InlineKeyboardMarkup(inline_keyboard=[[btn]])
+    
+    text = (
+        "እንኳን ወደ KIDDY LIVE በደህና መጡ!\n"
+        "በአሁኑ ሰአት እየተደረጉ ያሉ የእግር ኳስ ጨዋታዎችን ለመመልከት ከስር 'Watch live' የሚለውን ይጫኑ።\n\n"
+        "Welcome to KIDDY LIVE!\n"
+        "To watch current live football matches, click on the 'Watch live' button below."
+    )
+    await message.answer(text, reply_markup=markup)
+
+async def main():
+    print("አዲሱ ቦት እየሰራ ነው...")
+    await dp.start_polling(bot)
+
+if __name__ == '__main__':
+    asyncio.run(main())
